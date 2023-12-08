@@ -108,7 +108,7 @@ export default async function Home() {
     </div>
     <div className='grid my-20 md:grid-cols-2 grid-cols-1'>
       <div className={`bg-white md:px-10 md:py-12 px-5 py-6 ${poppins.className}`}>
-        <h4 className="text-[#9CA7AB] text-sm">BRAND'S DEAL</h4>
+        <h4 className="text-[#9CA7AB] text-sm">BRAND&#39;S DEAL</h4>
         <h2 className='text-3xl text-[#27323F] my-6'>Save up to $200 on select Samsung washing machine</h2>
         <p className='text-[#48515B] text-base'>Tortor purus et quis aenean tempus tellus fames.</p>
         <button className='text-[#0573F0] mt-6'>Shop now</button>
