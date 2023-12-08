@@ -121,7 +121,7 @@ function Navbar() {
           <Link href="#" className="block py-2 pl-3 pr-4 text-[#f7fbfc] rounded md:p-0">New arrivals</Link>
         </li>
         <li className='md:pr-12 h-12'>
-          <a href="#" className="block py-2 pl-3 pr-4 text-[#f7fbfc] rounded md:p-0">Today's deal</a>
+          <a href="#" className="block py-2 pl-3 pr-4 text-[#f7fbfc] rounded md:p-0">Today&#39;s deal</a>
         </li>
         <li className='md:pr-12 h-12'>
           <a href="#" className="block py-2 pl-3 pr-4 text-[#f7fbfc] rounded md:p-0">Gift cards</a>
