@@ -2,14 +2,14 @@ import executeQuery from "../../../../../lib/db";
 
 export async function GET(request: Request, { params }: { params: { category_name: string } }) {
     const categoryMapping: Record<string, string> = {
-      'air-conditioner': 'Air conditioner',
-      'audio-video': 'Audio & video',
-      'gadgets': 'Gadgets',
-      'home-appliances': 'Home appliances',
-      'kitchen-appliances': 'Kitchen appliances',
-      'pcs-laptop': 'PCs & laptop',
-      'refrigerator': 'Refrigerator',
-      'smart-home': 'Smart Home',
+      'air-conditioner': 'air conditioner',
+      'audio-video': 'audio & video',
+      'gadgets': 'gadgets',
+      'home-appliances': 'home appliances',
+      'kitchen-appliances': 'kitchen appliances',
+      'pcs-laptop': 'pcs & laptop',
+      'refrigerator': 'refrigerator',
+      'smart-home': 'smart Home',
     };
   
     const category = categoryMapping[params.category_name as keyof typeof categoryMapping];

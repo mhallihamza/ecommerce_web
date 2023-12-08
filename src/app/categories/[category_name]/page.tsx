@@ -1,7 +1,9 @@
 "use client"
 import React from 'react'
+import Link from 'next/link';
 import useFetch from '@/hooks/useFetch'
 import Produit from '@/app/Components/Produit';
+import ProductLoader from '@/app/Components/ProductLoader';
 import { Poppins } from 'next/font/google';
 import { Inter } from 'next/font/google';
 
@@ -51,24 +53,31 @@ function Page({ params }: { params: { category_name: string } }) {
         
       };
     const {data:categoriesData,error:categoriesError,refetch:categoriesRefetch} = useFetch(`/api/categories/${params.category_name}`);
-    let categories: CategoriesType[] = categoriesData;
-    const {data:productsData,error,refetch} = useFetch(`/api/products/${categories[0]?.category_id}`);
-    let products: ProduitsType[] = productsData;
-    console.log(categories,products);
+    let categories: CategoriesType[] | undefined = categoriesData;
+    const {data:productsData,error,refetch} = useFetch(`/api/products/${categories && categories[0]?.category_id}`);
+    let products: ProduitsType[] | undefined = productsData;
   return (
     <div className='mx-7 xl:mx-24 lg:pt-12 lg:grid lg:grid-cols-4'>
       <div className='border-r hidden lg:block pr-10 col-span-1'>
         <div className='sticky top-3'>
          <h1 className={`text-[#27323F] text-2xl ${poppins.className}`}>Categories</h1>
          <ul className={`text-[#48515B] text-base ${inter.className} xl:gap-4 flex flex-col gap-3 mt-20 pl-6`}>
-           <li>Air conditioner</li>
-           <li>Audio & video</li>
-           <li>Gadgets</li>
-           <li>Home appliances</li>
-           <li>Kitchen appliances</li>
-           <li>PCs & laptop</li>
-           <li>Refrigerator</li>
-           <li>Smart home</li>
+           <li><Link href="/categories/air-conditioner">
+            Air conditioner</Link></li>
+           <li><Link href="/categories/audio-video">
+            Audio & video</Link></li>
+           <li><Link href="/categories/gadgets">
+            Gadgets</Link></li>
+           <li><Link href="/categories/home-appliances">
+            Home appliances</Link></li>
+           <li><Link href="/categories/kitchen-appliances">
+            Kitchen appliances</Link></li>
+           <li><Link href="/categories/pcs-laptop">
+            PCs & laptop</Link></li>
+           <li><Link href="/categories/refrigerator">
+            Refrigerator</Link></li>
+           <li><Link href="/categories/smart-home">
+            Smart home</Link></li>
          </ul>
          </div>
       </div>
@@ -76,17 +85,20 @@ function Page({ params }: { params: { category_name: string } }) {
         <div className='mt-16'>
             <h1 className={`text-[#0573F0] mb-8 text-3xl lg:text-6xl md:text-[40px] ${poppins.className}`}>{categoryMapping[params.category_name]}</h1>
             <div>
-              {categories[0]?.category_description}
+              {categories && categories[0]?.category_description}
             </div>
         </div>
         <h2 className='mt-3 md:mt-5 md:mb-10 mb-8'>Showing all {products?.length} results</h2>
         <div className='grid grid-cols-2 md:grid-cols-3 gap-4'>
-      {
-        products.map(produit=>(
+      { 
+        products ? products.map(produit=>(
           <div key={produit.product_id}>
              <Produit produit={produit}/>
           </div>
-        ))
+        )) : 
+        [0,1,2,3,5,6,7,8].map(element => (
+          <ProductLoader key={element}/>
+          ))
       }
         </div>
       </div>

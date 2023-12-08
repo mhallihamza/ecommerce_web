@@ -27,7 +27,7 @@ export default function RootLayout({
       <div className="flex flex-col flex-1">
         <Headers />
         <Navbar />
-        <main className="flex-1">
+        <main className="flex-1 relative">
           <ShoppingCard/>
           {children}
         </main>

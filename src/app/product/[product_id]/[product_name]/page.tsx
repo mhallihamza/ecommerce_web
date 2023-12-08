@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Poppins } from 'next/font/google';
 import Produit from '@/app/Components/Produit';
+import Spinner from '@/app/Components/Spinner';
 import QuantitySelector from '@/app/Components/QuantitySelector';
 import { useCart } from '@/context/CartContext';
 import { Inter } from 'next/font/google';
@@ -43,25 +44,25 @@ function Page({ params }: { params: { product_id: number, product_name: string }
   };
   const {data,error,refetch} = useFetch(`/api/product/${params.product_id}`);
   let product:ProduitType[] = data;
-  const {data:productsData,error:productsError,refetch:productsRefetch} = useFetch(`/api/products/${product[0]?.category_id}`);
+  const {data:productsData,error:productsError,refetch:productsRefetch} = useFetch(`/api/products/${product && product[0]?.category_id}`);
   let products:ProduitType[] = productsData && productsData.length > 0 ? productsData.slice(0, 4) : [];
-  const description: Record<string, any> = product[0]?.attributes ? JSON.parse(product[0].attributes) : {};
-  console.log(products);
+  const description: Record<string, any> = (product && product[0])?.attributes ? JSON.parse(product[0].attributes) : {};
   // Function to add an item to the cart for a visitor
 const handleAddToCart  = (product_id:number, quantity:number) => {
    addItemToCart(product_id,quantity);
 };
 
   return (
-    <div className='bg-slate-100 px-4 md:px-6 xl:pt-12 lg:px-10 xl:px-14 py-6'>
-      {
-        product.length && (
+    <>
+          {
+        product ? (
+    <div className='bg-slate-100 px-4 md:px-6 xl:py-12 lg:p-10 xl:px-14 py-6'>
       <div>
         <div className='lg:grid lg:grid-cols-2 lg:gap-16'>
         <div className='lg:col-span-1 xl:pb-12'>
             <img className='w-full object-fill' src={product[0].image_url} alt={product[0].category_name}></img>
         </div>
-        <div className={`${inter.className} pb-10 lg:col-span-1`}>
+        <div className={`${inter.className} pb-10 pt-8 lg:pt-0 lg:col-span-1`}>
            <h3 className='text-[#777777] lg:text-base text-xs'>{`Home / ${product[0].category_name} / ${product[0].product_name}`}</h3>
            <h1 className={`text-lg lg:text-3xl mt-5 mb-2 font-semibold text-[#27323F] ${poppins.className}`}>{product[0].product_name}</h1>
            <div className='text-[#48515B] mb-1 text-2xl font-semibold'>{`$${product[0].product_price}`}</div>
@@ -89,6 +90,7 @@ const handleAddToCart  = (product_id:number, quantity:number) => {
           <div className='text-white bg-blue-400 font-semibold text-xl py-2 pl-6 w-full'>Caractéristiques</div>
           <div className='border bg-white px-6 py-8 text-black font-bold'>
             <table className='w-full'>
+              <tbody>
             <tr>
               <td className='font-bold py-1 border-b border-gray-400 text-gray-700'>AVAILABILITY DATE</td>
               <td className='text-gray-400 py-1 border-b border-gray-400'></td>
@@ -109,6 +111,7 @@ const handleAddToCart  = (product_id:number, quantity:number) => {
         </td>
       </tr>
     ))}
+     </tbody>
        </table>
           </div>
         </div>
@@ -123,9 +126,12 @@ const handleAddToCart  = (product_id:number, quantity:number) => {
           </div>
         </div>
       </div>
-  )
+          </div>
+  ) : <div className='md:absolute flex justify-center py-24 md:py-0 md:top-1/2 md:left-1/2 md:transform md:-translate-x-1/2 md:-translate-y-1/2'>
+       <Spinner/>
+       </div>
             }
-    </div>
+    </>
   )
 }
 

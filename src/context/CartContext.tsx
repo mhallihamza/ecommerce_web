@@ -14,6 +14,7 @@ interface Cart {
 interface CartContextProps {
   cart: Cart;
   addItemToCart: (productId: number, quantity: number) => void;
+  removeItemFromCart: (productId: number) => void;
   getTotalProductCount: () => number;
 }
 
@@ -25,12 +26,14 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<Cart>({ items: [] });
+  const [initialRender, setInitialRender] = useState(true);
 
   useEffect(() => {
     // Load cart data from local storage on component mount
     const storedCartString = localStorage.getItem('visitor_cart');
     const storedCart: Cart = storedCartString ? JSON.parse(storedCartString) : { items: [] };
     setCart(storedCart);
+    setInitialRender(false);
   }, []);
 
   const addItemToCart = (productId: number, quantity: number): void => {
@@ -54,12 +57,24 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   };
 
+  const removeItemFromCart = (productId: number): void => {
+    // Filter out the item with the specified productId
+    const updatedCart = {
+      ...cart,
+      items: cart.items.filter((item) => item.product_id !== productId),
+    };
+    setCart(updatedCart);
+  };
+
   useEffect(() => {
     // Save the updated cart to local storage whenever it changes
-    if(cart.items.length>0){
-    localStorage.setItem('visitor_cart', JSON.stringify(cart));
+    if (!initialRender && cart.items.length > 0) {
+      localStorage.setItem('visitor_cart', JSON.stringify(cart));
     }
-  }, [cart]);
+    if(!initialRender === true) {
+      localStorage.setItem('visitor_cart', JSON.stringify(cart));
+    }
+  }, [cart, initialRender]);
 
   const getTotalProductCount = (): number => {
     return cart.items.reduce((acc, item) => acc + item.quantity, 0);
@@ -68,6 +83,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const contextValue: CartContextProps = {
     cart,
     addItemToCart,
+    removeItemFromCart,
     getTotalProductCount,
   };
 

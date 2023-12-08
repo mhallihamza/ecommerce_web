@@ -1,8 +1,7 @@
 "use client"
 import { useState,useEffect } from "react"
-import axios from "axios"
 const useFetch = (url:string)=>{
-    const [data,setdata] = useState([]);
+    const [data,setdata] = useState<any>(undefined);
     const [error,seterror] = useState<any>(false);
     useEffect(()=>{
         const fetchData = async () => {

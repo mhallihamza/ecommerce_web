@@ -56,12 +56,15 @@ function Navbar() {
       </div>
     </Link>
        </div>
-    <div className='text-white'>
-    <RiShoppingBasketLine className="h-8 w-8"/>
-    </div>
+       <div className='relative text-white'>
+        <button onClick={handleClick}>
+          { getTotalProductCount()>0 ? <span className='absolute rounded-full flex justify-center items-center w-5 h-5 bg-white -right-[14px] -top-2 text-black'>{getTotalProductCount()}</span> : ""}
+          <RiShoppingBasketLine className="h-8 w-8"/>
+        </button>
+        </div>
     </div>
     <div className={`${dropdown ? "" : "hidden"}  w-full lg:flex md:w-auto`} id="navbar-dropdown">
-      <ul className={`flex flex-col flex-wrap relative font-semibold text-base p-4 md:p-0 mt-4 md:flex-row md:mt-0 md:border-0 ${inter.className}`}>
+      <ul className={`flex flex-col flex-wrap relative font-semibold text-base p-4 lg:p-0 mt-4 lg:flex-row lg:mt-0 md:border-0 ${inter.className}`}>
         <li className='md:pr-12 h-12' onMouseEnter={()=>setDroplink(true)} onMouseLeave={()=>setDroplink(false)}>
           <button onClick={drop} className="flex items-center justify-between w-full py-2 px-3 text-[#f7fbfc] rounded md:hover:bg-transparent md:border-0 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">All products <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
@@ -127,7 +130,7 @@ function Navbar() {
       <div className='text-white hidden max-[1250px]:items-center lg:flex pl-2'>
         <div className='relative'>
         <button onClick={handleClick}>
-          <span className='absolute rounded-full flex justify-center items-center w-5 h-5 bg-white -right-[14px] xl:-top-3 text-black'>{getTotalProductCount()}</span>
+          { getTotalProductCount()>0 ? <span className='absolute rounded-full flex justify-center items-center w-5 h-5 bg-white -right-[14px] lg:-top-3 text-black'>{getTotalProductCount()}</span> : ""}
           <RiShoppingBasketLine className="h-6 w-6"/>
         </button>
         </div>
