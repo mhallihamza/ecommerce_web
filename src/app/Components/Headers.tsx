@@ -15,7 +15,7 @@ function Headers() {
     <header className='bg-[#0573f0] hidden lg:flex h-16 border-b border-[#0769da]'>
       <div className='max-w-screen-xl mx-auto px-4 lg:px-6 flex justify-between items-center w-full'>
       <Link href="/">
-        <div className='text-white flex gap-1'>
+        <div className='text-white items-center flex gap-1'>
           <div className="h-6 w-6 rounded-full border-8 border-yellow-300"></div>
           <h1 className={`text-2xl ${josefin_Sans.className}`}>tronmart</h1>
         </div>

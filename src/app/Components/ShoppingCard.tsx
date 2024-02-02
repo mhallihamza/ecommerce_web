@@ -1,13 +1,15 @@
 "use client"
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Link from 'next/link';
 import useFetch from '@/hooks/useFetch';
 import { useCart } from '@/context/CartContext';
-import { SideCartContext } from '@/context/SideCartContext';
+import { ShowContext } from '@/context/ShowContext';
 
-interface SideCartContextProps {
+interface ShowContextProps {
   showcart: boolean;
+  showlogin: boolean;
   handleClick: () => void;
+  handleLoginClick: () => void;
 }
 
 type ProduitType = {
@@ -22,8 +24,22 @@ type ProduitType = {
 
 function ShoppingCard() {
   const { cart, removeItemFromCart } = useCart();
-  const { showcart, handleClick } = useContext(SideCartContext) as SideCartContextProps;
+  const { showcart, handleClick } = useContext(ShowContext) as ShowContextProps;
   const { data, error, refetch } = useFetch(`/api/products`);
+  useEffect(() => {
+    // Disable/Enable scroll based on showLogin
+    if (showcart) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+
+    // Clean up the effect
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [showcart]);
+
   let products: ProduitType[] = data;
 
   const getProductById = (productId: number) => {

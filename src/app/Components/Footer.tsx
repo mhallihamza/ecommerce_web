@@ -16,7 +16,7 @@ function Footer() {
     <footer>
       <div className='grid grid-cols-1 gap-14 md:grid-cols-4  bg-white pt-20 pb-16 px-10 border-t'>
       <div>
-      <div className='text-gray-400 justify-center flex gap-1'>
+      <div className='text-gray-400 items-center justify-center flex gap-1'>
           <div className="h-6 w-6 rounded-full border-8 border-gray-500"></div>
           <h1 className={`text-2xl ${josefin_Sans.className}`}>tronmart</h1>
         </div>

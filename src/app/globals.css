@@ -25,3 +25,32 @@
   #root .ql-editor {
     min-height: 18em;
   }
+
+.intl-tel-input {
+    width: 100% !important;
+    border: 1px solid #cccedd !important;
+    border-radius: 8px !important;
+    outline: none !important;
+    margin-bottom: 10px !important;
+}
+
+.form-control {
+    width: 100% !important;
+    border-radius: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    outline: none !important;
+}
+
+.phone-input-container {
+    position: relative !important;
+}
+
+.error-message {
+    position: absolute !important;
+    background-color: white !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    color: red !important;
+    font-size: 12px !important;
+}

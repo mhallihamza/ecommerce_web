@@ -5,8 +5,11 @@ import Headers from './Components/Headers'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import ShoppingCard from './Components/ShoppingCard'
+import Login from './Components/Login'
+import Signup from './Components/Signup'
+import { AuthContextProvider } from '@/context/AuthContext'
 import { CartProvider } from '@/context/CartContext'
-import { SideCartContextProvider } from '@/context/SideCartContext'
+import { ShowContextProvider } from '@/context/ShowContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -21,21 +24,25 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+     <AuthContextProvider>
       <CartProvider>
-        <SideCartContextProvider>
+        <ShowContextProvider>
     <body className="flex flex-col min-h-screen">
       <div className="flex flex-col flex-1">
         <Headers />
         <Navbar />
         <main className="flex-1 relative">
+          <Login/>
+          <Signup/>
           <ShoppingCard/>
           {children}
         </main>
       </div>
       <Footer />
     </body>
-        </SideCartContextProvider>
+        </ShowContextProvider>
       </CartProvider>
+     </AuthContextProvider>
   </html>
   )
 }

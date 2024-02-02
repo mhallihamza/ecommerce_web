@@ -7,12 +7,16 @@ import { useCart } from '@/context/CartContext';
 import { Inter } from 'next/font/google';
 import { Josefin_Sans } from 'next/font/google';
 import { RiShoppingBasketLine, RiCloseFill  } from 'react-icons/ri';
-import { SideCartContext } from '@/context/SideCartContext';
+import { GoPerson } from "react-icons/go";
+import { ShowContext } from '@/context/ShowContext';
+import { AuthContext } from '@/context/AuthContext';
 
-interface SideCartContextProps {
-    showcart: boolean;
-    handleClick: () => void;
-  }
+interface ShowContextProps {
+  showcart: boolean;
+  showlogin: boolean;
+  handleClick: () => void;
+  handleLoginClick: () => void;
+}
 const inter = Inter({
   weight: '500',
   subsets: ['latin'],
@@ -26,10 +30,11 @@ const josefin_Sans = Josefin_Sans({
 });
 
 function Navbar() {
-  const { showcart, handleClick } = useContext(SideCartContext) as SideCartContextProps;
+  const { showcart, handleClick, showlogin, handleLoginClick } = useContext(ShowContext) as ShowContextProps;
   const [dropdown,setDropdown] = useState(false);
   const [droplink,setDroplink]  = useState(false);
   const { getTotalProductCount } = useCart();
+  const {user,loading,error,dispatch} = useContext(AuthContext);
   const navbar = () => {
     setDropdown(prev=>!prev);
   }
@@ -135,7 +140,14 @@ function Navbar() {
         </button>
         </div>
         <div className="border-l border-[#0769da] h-2/3 mx-6"></div>
-        <div className='inline whitespace-nowrap'>Log In</div>
+        <div className={`inline ${inter.className} text-base font-semibold  whitespace-nowrap`}>
+          {user ? <div className='flex items-center gap-2'>
+            <div><GoPerson  className='h-6 w-6 text-white' /></div>
+            <Link href='#' className='text-sm font-medium'>{user.first_name}</Link>
+          </div>
+          : <button onClick={handleLoginClick}>Log In</button>
+          }
+        </div>
       </div>
     </div>
       </div>
