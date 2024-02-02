@@ -207,7 +207,7 @@ function Signup() {
                         placeholder='Téléphone'
                         onPhoneNumberChange={handlePhoneNumberChange}
                       />
-                      {!isValidPhoneNumber && <p className={`error-message ${inter.className}`}>Le numéro de téléphone n'est pas valide</p>}
+                      {!isValidPhoneNumber && <p className={`error-message ${inter.className}`}>Le numéro de téléphone n&#39;est pas valide</p>}
                     </div>
                     <div>
                       <button onClick={sendcode} className='bg-blue-500 text-base font-medium my-2 rounded-3xl py-[10px] w-full text-white'>CONTINUER</button>
@@ -227,7 +227,7 @@ function Signup() {
                 : <div className='p-3'>
                   <div className={`${isVerificationSuccessful === false ? 'flex' : 'hidden'} py-1 mb-2 rounded-lg text-red-500 gap-2 pl-3 items-center bg-sky-100`}>
                     <IoIosWarning />
-                    <p className=''>Le code de verification n'est pas valide.</p>
+                    <p className=''>Le code de verification n&#39;est pas valide.</p>
                   </div>
                   <p className='text-sm mb-3 text-[#333333]'>Merci de saisir le code de verification que vous avez reçu par SMS.</p>
                   <div className='p-5'>
