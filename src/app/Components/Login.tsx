@@ -54,7 +54,7 @@ function Login() {
     e.preventDefault();
     dispatch({type: "LOGIN_START"});
   
-    axios.post("api/auth", credentials)
+    axios.post("/api/auth", credentials)
       .then(res => {
         dispatch({type: "LOGIN_SUCCESS", payload: res.data});
         handleLoginClick();
