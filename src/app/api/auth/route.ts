@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import * as fs from 'fs';
+//import * as fs from 'fs';
 import { NextResponse } from 'next/server'
 import executeQuery from '../../../../lib/db';
-let privateKey = fs.readFileSync('private.key');
+//let privateKey = fs.readFileSync('private.key');
 
 export async function POST(request: Request) {
   interface User {
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
           }
           const token = jwt.sign(
             { id: user[0].user_id, role: user[0].role },
-            privateKey
+            "1uSj/q9zqKERruCYgGjaliVN7vrJOjFtzzVnsQ5/nuc="
           )
           return new Response(
             JSON.stringify(user[0]),
