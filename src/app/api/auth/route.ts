@@ -28,7 +28,7 @@ export async function POST(request: Request) {
           if (!match) {
             // handle incorrect password error
             return Response.json({
-              message: "Invalid email or password"
+              message: "Invalid email"
             }, {
               status: 401,
             })
